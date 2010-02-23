@@ -1,7 +1,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Lemon Example Two: Test Suites
 //
-// Time-stamp: <Last modified 2010-02-23 03:17:53 by Eric Scrivner>
+// Time-stamp: <Last modified 2010-02-23 03:28:02 by Eric Scrivner>
 //
 // Description:
 //   Provides a set of unit-tests using Lemon to showcase a method for test
@@ -30,6 +30,8 @@ int factorial(int n) {
 //
 // Uses the Sieve of Eratosthenes to determine if the given number is prime.
 bool is_prime(int n) {
+	if (n < 2) return false;
+
 	for (int i = 2; i < n; i++) {
 		if (n % i == 0) {
 			return false;
@@ -69,7 +71,7 @@ bool factorial_test_suite() {
 //
 // Returns the result of running all is_prime tests
 bool is_prime_test_suite() {
-	Lemon lemon(4);
+	Lemon lemon(7);
 
 	lemon.not_ok(is_prime(-5), "Negative numbers are not prime.");
 
