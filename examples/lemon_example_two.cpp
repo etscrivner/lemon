@@ -1,11 +1,10 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Lemon Example Two: Test Suites
 //
-// Time-stamp: <Last modified 2010-02-23 03:28:02 by Eric Scrivner>
+// Time-stamp: <Last modified 2010-02-23 04:10:46 by Eric Scrivner>
 //
 // Description:
-//   Provides a set of unit-tests using Lemon to showcase a method for test
-// suites.
+//   Showcase one simple method for composing unit tests into suites
 ////////////////////////////////////////////////////////////////////////////////
 #include "../lemon.h"
 
@@ -73,18 +72,25 @@ bool factorial_test_suite() {
 bool is_prime_test_suite() {
 	Lemon lemon(7);
 
+	// Test 1: Negative numbers are by definition non-prime
 	lemon.not_ok(is_prime(-5), "Negative numbers are not prime.");
 
-	lemon.not_ok(is_prime(0), "Zero is not prime.");
+	// Test 2: Zero is non-prime
+	lemon.not_ok(is_prime(0), "Zero is non-prime.");
 
-	lemon.not_ok(is_prime(1), "One is not prime.");
+	// Test 3: One is non-prime
+	lemon.not_ok(is_prime(1), "One is non-prime.");
 
+	// Test 4: Two is the first prime number
 	lemon.ok(is_prime(2), "Two is prime.");
 
+	// Test 5: Three is prime
 	lemon.ok(is_prime(3), "Three is prime.");
 
-	lemon.not_ok(is_prime(9), "Nine is not prime.");
+	// Test 6: Nine is composite and thus non-prime
+	lemon.not_ok(is_prime(9), "Nine is non-prime.");
 
+	// Test 7: 113 is prime
 	lemon.ok(is_prime(113), "113 is prime.");
 
 	return lemon.end();
