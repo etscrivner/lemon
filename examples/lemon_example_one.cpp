@@ -1,14 +1,12 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Lemon Example One: A Simple Factorial Function
 //
-// Time-stamp: <Last modified 2010-02-23 02:52:12 by Eric Scrivner>
+// Time-stamp: <Last modified 2010-02-23 02:58:43 by Eric Scrivner>
 //
 // Description:
 //   Provides a set of unit-tests using Lemon for a simple factorial function.
 ////////////////////////////////////////////////////////////////////////////////
-#include <iostream>
 #include "../lemon.h"
-using namespace std;
 
 ////////////////////////////////////////////////////////////////////////////////
 // Function: factorial

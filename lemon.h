@@ -2,7 +2,7 @@
 // Lemon Unit Test Framework
 // Author: Eric Scrivner
 //
-// Time-stamp: <Last modified 2010-02-23 02:38:14 by Eric Scrivner>
+// Time-stamp: <Last modified 2010-02-23 03:03:23 by Eric Scrivner>
 //
 // Description:
 //   A lightweight, minimal unit-testing framework based on Perl Test::More
@@ -42,7 +42,9 @@ public:
   // Function: end
   //
   // Signifies the end of the testing phase and prints the results.
-  void end() {
+  //
+  // Returns true if all unskipped tests passed, false if there were failures.
+  bool end() {
       // If any tests were skipped
     if (num_skipped_ > 0) {
       // Display information about the skipped tests
@@ -55,9 +57,11 @@ public:
       // Display test failure statistics
       std::cout << "# Looks like you failed " << num_failed_;
       std::cout << " of " << num_tests_ << " tests.\n";
+      return false;
     } else {
       // Otherwise display success message
       std::cout << "# Looks like you passed all " << num_tests_ << " tests.\n";
+      return true;
     }
   }
   
