@@ -2,10 +2,10 @@
 // Lemon Unit Test Framework
 // Author: Eric Scrivner
 //
-// Time-stamp: <Last modified 2009-12-05 17:13:27 by Eric Scrivner>
+// Time-stamp: <Last modified 2010-02-23 02:18:47 by Eric Scrivner>
 //
 // Description:
-//   A very simple unit testing framework
+//   A lightweight, minimal unit-testing framework based on Perl Test::More
 ////////////////////////////////////////////////////////////////////////////////
 #include "lemon.h"
 using namespace std;

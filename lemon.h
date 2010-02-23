@@ -2,10 +2,10 @@
 // Lemon Unit Test Framework
 // Author: Eric Scrivner
 //
-// Time-stamp: <Last modified 2010-02-23 01:58:27 by Eric Scrivner>
+// Time-stamp: <Last modified 2010-02-23 02:21:13 by Eric Scrivner>
 //
 // Description:
-//   A very simple unit testing framework
+//   A lightweight, minimal unit-testing framework based on Perl Test::More
 ////////////////////////////////////////////////////////////////////////////////
 #ifndef LEMON_H__
 #define LEMON_H__
@@ -43,8 +43,7 @@ public:
   // Parameters:
   //    message - A string to be written out to the display
   //
-  // Displays the information with a # in front to signify that it is
-  // extra information, not part of the unit test.
+  // Used to display diagnostic information which is not a unit test.
   void diag(const std::string& message);
   
   //////////////////////////////////////////////////////////////////////////////
@@ -65,8 +64,8 @@ public:
   //    failed - False indicates a passing condition, true indicates failure
   //    test_name - A short, descriptive name for this test
   //
-  // Marks this test as passed if passed is false. The test is marked as
-  // failing otherwise.
+  // Marks this test as passed if the boolean parameter is false. The test is 
+  // marked as failing otherwise.
   bool not_ok(bool failed, const std::string& test_name);
 
   //////////////////////////////////////////////////////////////////////////////
