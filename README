@@ -16,3 +16,65 @@ Linux or Mac users this might be some place like /usr/include or
 /usr/local/include.
 
 Once that's done just include lemon.h and start testing!
+
+Getting Started
+================
+A set of tests using Lemon consists of three parts:
+
+1) Initializing lemon
+
+This will display the initialization message and create the lemon object to
+be used for testing:
+
+Lemon lemon(num_tests_which_will_be_run);
+
+2) Conducting the tests
+
+This is where you conduct the actual battery of tests:
+
+...
+lemon.is(this_one, that_one, descriptive_test_name);
+...
+
+3) Ending the testing
+
+When the testing is done, you tell lemon it's time to display statistics:
+
+lemon.end();
+
+Lemon Assertions
+=========================
+Lemon provides a simple set of base assertions from which more complex ones
+can be built. These simple assertions are:
+
+* ok(boolean_condition, descriptive_test_name)
+
+This test passes if the boolean_condition is true.
+
+* not_ok(boolean_condition, descriptive_test_name)
+
+This test passes if the boolean_condition is false.
+
+* is(this_one, that_one, descriptive_test_name)
+
+This test passes if this_one == that_one
+
+* isnt(this_one, that_one, descriptive_test_name)
+
+This test passes if this_one != that_one
+
+* pass(descriptive_test_name)
+
+This test passes trivially
+
+* fail(descriptive_test_name)
+
+This test fails trivially
+
+* skip(reason, num_to_skip)
+
+Skips the given number of tests displaying the reason to the user
+
+* todo(what)
+
+Counts as a skipped test and displays a todo message to the user
