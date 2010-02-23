@@ -42,8 +42,8 @@ When the testing is done, you tell lemon it's time to display statistics:
 
 lemon.end();
 
-Lemon Assertions
-=========================
+Assertions
+===========
 Lemon provides a simple set of base assertions from which more complex ones
 can be built. These simple assertions are:
 
@@ -77,4 +77,4 @@ Skips the given number of tests displaying the reason to the user
 
 * todo(what)
 
-Counts as a skipped test and displays a todo message to the user
+Counts as a skipped test and displays a to-do message to the user
