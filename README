@@ -1,0 +1,18 @@
+Lemon - A simple, lightweight unit-testing framework.
+
+Philosophy
+============
+Lemon is designed to be easy to get up and running so you can worry more
+about writing unit tests and less about finding an agreeable framework.
+If lemon doesn't have something you need feel free to add it. If you
+think other people might like it then by all means share it.
+
+Installation
+=============
+Installation of lemon is easy:
+
+Just add lemon.h to your project or place it in a common directory. For Unix,
+Linux or Mac users this might be some place like /usr/include or
+/usr/local/include.
+
+Once that's done just include lemon.h and start testing!
