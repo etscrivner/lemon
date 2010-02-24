@@ -25,10 +25,10 @@ int factorial(int n) {
 }
 
 int main(int argc, char* argv[]) {
-	// Setup lemon for 5 tests
-	Lemon lemon(4);
+  // Setup lemon for 5 tests
+  Lemon lemon(4);
 
-	// Test 1: Factorial of zero is one
+  // Test 1: Factorial of zero is one
   lemon.is(factorial(0), 1, "0! = 1");
 
   // Test 2: 3! = 3 * 2 * 1
@@ -40,8 +40,8 @@ int main(int argc, char* argv[]) {
   // Test 4: 5! = 120
   lemon.is(factorial(5), 120, "5! = 120");
 
-	// Finish testing and display statistics
-	lemon.end();
+  // Finish testing and display statistics
+  lemon.end();
 	
-	return 0;
+  return 0;
 }
