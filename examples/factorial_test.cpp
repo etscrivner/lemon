@@ -1,7 +1,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Lemon Example One: A Simple Factorial Function
 //
-// Time-stamp: <Last modified 2010-02-23 19:47:29 by Eric Scrivner>
+// Time-stamp: <Last modified 2010-02-23 19:51:48 by Eric Scrivner>
 //
 // Description:
 //   Provides a set of unit-tests using Lemon for a simple factorial function.
@@ -42,6 +42,6 @@ int main(int argc, char* argv[]) {
 
 	// Finish testing and display statistics
 	lemon.end();
-
+	
 	return 0;
 }
