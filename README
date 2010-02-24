@@ -1,80 +1,59 @@
-Lemon - A simple, lightweight unit-testing framework.
+      ....__**
+    ..........\
+  .............\ 
+ .............. 
+ .............  
+ ............
+ \.........
+ **---
 
-Philosophy
-============
-Lemon is designed to be easy to get up and running so you can worry more
-about writing unit tests and less about finding an agreeable framework.
-If lemon doesn't have something you need feel free to add it. If you
-think other people might like it then by all means share it.
+~ Lemon ~
 
-Installation
-=============
-Installation of lemon is easy:
+Lemon is a small, fast unit-testing framework designed to take almost no time
+to set up.
+   
+~ Philosophy ~
 
-Just add lemon.h to your project or place it in a common directory. For Unix,
-Linux or Mac users this might be some place like /usr/include or
-/usr/local/include.
+Lemon is designed to be small, really small. That way you can worry less
+about setting up the framework and more about writing tests.
 
-Once that's done just include lemon.h and start testing!
+~ Installation ~
 
-Getting Started
-================
-A set of tests using Lemon consists of three parts:
+Just add lemon.h to your project or place it in a common directory for your
+compiler (On Linux/Mac/Unix this might be /usr/local/include).
 
-1) Initializing lemon
+~ Getting Started ~
 
-This will display the initialization message and create the lemon object to
-be used for testing:
+To start writing tests in lemon:
 
-Lemon lemon(num_tests_which_will_be_run);
+  1) Initialize lemon
 
-2) Conducting the tests
+  Lemon lemon(num_tests_which_will_be_run);
 
-This is where you conduct the actual battery of tests:
+  2) Conduct tests
 
-...
-lemon.is(this_one, that_one, descriptive_test_name);
-...
+  lemon.is(this_one_equal_to, that_one, descriptive_test_name);
 
-3) Ending the testing
+  3) Display results
 
-When the testing is done, you tell lemon it's time to display statistics:
+  lemon.end();
 
-lemon.end();
+~ Assertions ~
 
-Assertions
-===========
-Lemon provides a simple set of base assertions from which more complex ones
-can be built. These simple assertions are:
+Lemon provides a minimal set of assertions:
 
-* ok(boolean_condition, descriptive_test_name)
+  * ok(boolean_condition, descriptive_test_name)
 
-This test passes if the boolean_condition is true.
+  * not_ok(boolean_condition, descriptive_test_name)
 
-* not_ok(boolean_condition, descriptive_test_name)
+  * is(this_one, that_one, descriptive_test_name)
 
-This test passes if the boolean_condition is false.
+  * isnt(this_one, that_one, descriptive_test_name)
 
-* is(this_one, that_one, descriptive_test_name)
+  * pass(descriptive_test_name)
 
-This test passes if this_one == that_one
+  * fail(descriptive_test_name)
 
-* isnt(this_one, that_one, descriptive_test_name)
+  * skip(reason, num_to_skip)
 
-This test passes if this_one != that_one
-
-* pass(descriptive_test_name)
-
-This test passes trivially
-
-* fail(descriptive_test_name)
-
-This test fails trivially
-
-* skip(reason, num_to_skip)
-
-Skips the given number of tests displaying the reason to the user
-
-* todo(what)
-
-Counts as a skipped test and displays a to-do message to the user
+  * todo(what)
