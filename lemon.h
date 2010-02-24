@@ -2,7 +2,7 @@
 // Lemon Unit Test Framework
 // Author: Eric Scrivner
 //
-// Time-stamp: <Last modified 2010-02-23 03:03:23 by Eric Scrivner>
+// Time-stamp: <Last modified 2010-02-23 17:12:05 by Eric Scrivner>
 //
 // Description:
 //   A lightweight, minimal unit-testing framework based on Perl Test::More
@@ -29,7 +29,7 @@ public:
   // This simply lets lemon know how many tests you're planning to run so that
   // it can properly output the diagnostic information and doesn't have to
   // count by hand (which can be tricky as one test can have many assertions).
-  Lemon(unsigned int num_planned_tests)
+  Lemon (unsigned int num_planned_tests)
   : num_tests_(0),
     test_number_(0),
     num_skipped_(0),
@@ -44,7 +44,7 @@ public:
   // Signifies the end of the testing phase and prints the results.
   //
   // Returns true if all unskipped tests passed, false if there were failures.
-  bool end() {
+  bool end () {
       // If any tests were skipped
     if (num_skipped_ > 0) {
       // Display information about the skipped tests
@@ -72,7 +72,7 @@ public:
   //    message - A string to be written out to the display
   //
   // Used to display diagnostic information which is not a unit test.
-  void diag(const std::string& message) {
+  void diag (const std::string& message) {
     std::cout << "# " << message << std::endl;
   }
   
@@ -85,7 +85,7 @@ public:
   //
   // Marks this test as passed if pass is true.  The test is marked as
   // failing otherwise.
-  bool ok(bool passed, const std::string& test_name) {
+  bool ok (bool passed, const std::string& test_name) {
     // Increment the number of tests run
     num_tests_++;
     
@@ -120,7 +120,7 @@ public:
   //
   // Marks this test as passed if the boolean parameter is false. The test is 
   // marked as failing otherwise.
-  bool not_ok(bool failed, const std::string& test_name) {
+  bool not_ok (bool failed, const std::string& test_name) {
     return ok(!failed, test_name);
   }
 
