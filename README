@@ -1,20 +1,20 @@
       ....__**
     ..........\
-  .............\ 
- .............. 
- .............  
+  .............\
+ ..............
+ ............. 
  ............
  \.........
  **---
 
-~ Lemon ~
+~ lemon ~
 
-Lemon is a small, fast unit-testing framework designed to take almost no time
+lemon is a small, fast unit-testing framework designed to take almost no time
 to set up.
    
 ~ Philosophy ~
 
-Lemon is designed to be small, really small. That way you can worry less
+lemon is designed to be small, really small. That way you can worry less
 about setting up the framework and more about writing tests.
 
 ~ Installation ~
@@ -40,7 +40,7 @@ To start writing tests in lemon:
 
 ~ Assertions ~
 
-Lemon provides a minimal set of assertions:
+lemon provides a minimal set of assertions:
 
   * ok(boolean_condition, descriptive_test_name)
 
