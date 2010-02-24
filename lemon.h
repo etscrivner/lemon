@@ -1,8 +1,8 @@
 ////////////////////////////////////////////////////////////////////////////////
-// Lemon Unit Test Framework
+// lemon
 // Author: Eric Scrivner
 //
-// Time-stamp: <Last modified 2010-02-23 17:12:05 by Eric Scrivner>
+// Time-stamp: <Last modified 2010-02-23 21:18:00 by Eric Scrivner>
 //
 // Description:
 //   A lightweight, minimal unit-testing framework based on Perl Test::More

@@ -9,36 +9,36 @@
 
 ~ lemon ~
 
-lemon is a small, fast unit-testing framework designed to take almost no time
+lemon is a tiny, fast unit-testing framework designed to take almost no time
 to set up.
    
-~ Philosophy ~
+~ philosophy ~
 
 lemon is designed to be small, really small. That way you can worry less
 about setting up the framework and more about writing tests.
 
-~ Installation ~
+~ installation ~
 
 Just add lemon.h to your project or place it in a common directory for your
 compiler (On Linux/Mac/Unix this might be /usr/local/include).
 
-~ Getting Started ~
+~ a not-so-bitter taste of lemon ~
 
 To start writing tests in lemon:
 
-  1) Initialize lemon
+  1) initialize lemon
 
   Lemon lemon(num_tests_which_will_be_run);
 
-  2) Conduct tests
+  2) conduct tests
 
   lemon.is(this_one_equal_to, that_one, descriptive_test_name);
 
-  3) Display results
+  3) display results
 
   lemon.end();
 
-~ Assertions ~
+~ assertions ~
 
 lemon provides a minimal set of assertions:
 
