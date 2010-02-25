@@ -1,7 +1,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Lemon Example Two: Test Suites
 //
-// Time-stamp: <Last modified 2010-02-23 04:10:46 by Eric Scrivner>
+// Time-stamp: <Last modified 2010-02-25 13:59:28 by Eric Scrivner>
 //
 // Description:
 //   Showcase one simple method for composing unit tests into suites
@@ -62,7 +62,7 @@ bool factorial_test_suite() {
 	// Test 5: Factorial of 5 is 120
 	lemon.is(factorial(5), 120, "5! = 120");
 
-	return lemon.end();
+	return lemon.done();
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -93,19 +93,11 @@ bool is_prime_test_suite() {
 	// Test 7: 113 is prime
 	lemon.ok(is_prime(113), "113 is prime.");
 
-	return lemon.end();
+	return lemon.done();
 }
 
 int main(int argc, char* argv[]) {
-	Lemon lemon(2);
-
-	lemon.diag("Factorial Suite");
-	lemon.ok(factorial_test_suite(), "Factorial test suite passes");
-
-	lemon.diag("IsPrime Suite");
-	lemon.ok(is_prime_test_suite(), "IsPrime test suite passes");
-
-	lemon.end();
-
+	factorial_test_suite();
+	is_prime_test_suite();
 	return 0;
 }

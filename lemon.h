@@ -2,7 +2,7 @@
 // lemon
 // Author: Eric Scrivner
 //
-// Time-stamp: <Last modified 2010-02-23 21:18:00 by Eric Scrivner>
+// Time-stamp: <Last modified 2010-02-25 13:58:45 by Eric Scrivner>
 //
 // Description:
 //   A lightweight, minimal unit-testing framework based on Perl Test::More
@@ -39,12 +39,12 @@ public:
   }
   
   //////////////////////////////////////////////////////////////////////////////
-  // Function: end
+  // Function: done
   //
   // Signifies the end of the testing phase and prints the results.
   //
   // Returns true if all unskipped tests passed, false if there were failures.
-  bool end () {
+  bool done () {
       // If any tests were skipped
     if (num_skipped_ > 0) {
       // Display information about the skipped tests
