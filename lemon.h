@@ -2,7 +2,7 @@
 // lemon
 // Author: Eric Scrivner
 //
-// Time-stamp: <Last modified 2010-02-25 13:58:45 by Eric Scrivner>
+// Time-stamp: <Last modified 2010-02-25 14:05:00 by Eric Scrivner>
 //
 // Description:
 //   A lightweight, minimal unit-testing framework based on Perl Test::More
@@ -134,9 +134,9 @@ public:
   //
   // Checks whether the two values are equal using the == operator. If
   // they are equal the test passes, otherwise it fails.
-  template<typename type_t>
-    bool is (const type_t& this_one,
-             const type_t& that_one,
+  template<typename T1, typename T2>
+    bool is (const T1& this_one,
+             const T2& that_one,
              const std::string& test_name)
   {
     bool passed = (this_one == that_one);
@@ -161,9 +161,9 @@ public:
   //
   // Checks whether the two values are equal using the != operator. If
   // they are not equal the test passes, otherwise the test fails.
-  template<typename type_t>
-    bool isnt (const type_t& this_one,
-               const type_t& that_one,
+  template<typename T1, typename T2>
+    bool isnt (const T1& this_one,
+               const T2& that_one,
                const std::string& test_name)
   {
     bool passed = (this_one != that_one);
