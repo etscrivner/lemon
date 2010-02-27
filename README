@@ -19,7 +19,7 @@ To start writing tests in lemon:
 
   1) initialize lemon
 
-  Lemon lemon(num_tests_which_will_be_run);
+  lemon_test<> lemon(num_tests_which_you_plan_to_run);
 
   2) conduct tests
 
@@ -27,11 +27,11 @@ To start writing tests in lemon:
 
   3) display results
 
-  lemon.done_testing();
+  lemon.done();
 
 ~ assertions ~
 
-lemon provides a minimal set of assertions:
+lemon provides a minimal but complete set of assertions:
 
   * ok(boolean_condition, descriptive_test_name)
 

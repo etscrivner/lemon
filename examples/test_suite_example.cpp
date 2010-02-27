@@ -1,7 +1,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Lemon Example Two: Test Suites
 //
-// Time-stamp: <Last modified 2010-02-25 13:59:28 by Eric Scrivner>
+// Time-stamp: <Last modified 2010-02-26 19:10:39 by Eric Scrivner>
 //
 // Description:
 //   Showcase one simple method for composing unit tests into suites
@@ -24,28 +24,8 @@ int factorial(int n) {
 	return result;
 }
 
-////////////////////////////////////////////////////////////////////////////////
-// Function: is_prime
-//
-// Uses the Sieve of Eratosthenes to determine if the given number is prime.
-bool is_prime(int n) {
-	if (n < 2) return false;
-
-	for (int i = 2; i < n; i++) {
-		if (n % i == 0) {
-			return false;
-		}
-	}
-
-	return true;
-}
-
-////////////////////////////////////////////////////////////////////////////////
-// Function: factorial_test_suite
-//
-// Returns the result of running all factorial tests
-bool factorial_test_suite() {
-	Lemon lemon(5);
+void factorial_test_suite() {
+	lemon_test<> lemon(5);
 
 	// Test 1: The factorial function handles negative numbers as expected
 	lemon.is(factorial(-5), 1, "(-5)! = 1");
@@ -62,15 +42,27 @@ bool factorial_test_suite() {
 	// Test 5: Factorial of 5 is 120
 	lemon.is(factorial(5), 120, "5! = 120");
 
-	return lemon.done();
+	lemon.done();
 }
 
 ////////////////////////////////////////////////////////////////////////////////
-// Function: is_prime_test_suite
+// Function: is_prime
 //
-// Returns the result of running all is_prime tests
-bool is_prime_test_suite() {
-	Lemon lemon(7);
+// Uses the Sieve of Eratosthenes to determine if the given number is prime.
+bool is_prime(int n) {
+	if (n < 2) return false;
+
+	for (int i = 2; i < n; i++) {
+		if (n % i == 0) {
+			return false;
+		}
+	}
+
+	return true;
+}
+
+void is_prime_test_suite() {
+	lemon_test<> lemon(7);
 
 	// Test 1: Negative numbers are by definition non-prime
 	lemon.not_ok(is_prime(-5), "Negative numbers are not prime.");
@@ -93,7 +85,7 @@ bool is_prime_test_suite() {
 	// Test 7: 113 is prime
 	lemon.ok(is_prime(113), "113 is prime.");
 
-	return lemon.done();
+	lemon.done();
 }
 
 int main(int argc, char* argv[]) {

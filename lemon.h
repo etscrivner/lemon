@@ -2,26 +2,73 @@
 // lemon
 // Author: Eric Scrivner
 //
-// Time-stamp: <Last modified 2010-02-25 14:05:00 by Eric Scrivner>
+// Time-stamp: <Last modified 2010-02-26 19:09:35 by Eric Scrivner>
 //
 // Description:
 //   A lightweight, minimal unit-testing framework based on Perl Test::More
 ////////////////////////////////////////////////////////////////////////////////
-#ifndef LEMON_H__
-#define LEMON_H__
+#ifndef LEMON_H_
+#define LEMON_H_
 
+// C++ includes
 #include <string>
 #include <iostream>
 
 ////////////////////////////////////////////////////////////////////////////////
-// Class: Lemon
+// Class: nullstream
 //
-// Evaluates specific unit tests and displays result statistics
-class Lemon
+// An output stream which discards any output and clears the bad bit. Only
+// slightly modified from:
+//
+// http://coding.derkeiler.com/Archive/C_CPP/comp.lang.cpp/2003-12/1049.html
+struct nullstream : std::ostream {
+  struct nullbuf : std::streambuf {
+    int overflow(int c) {
+      return traits_type::not_eof(c);
+    }
+  } sbuf_;
+
+  nullstream()
+  : std::ios(&sbuf_),
+    std::ostream(&sbuf_)
+  { }
+};
+
+////////////////////////////////////////////////////////////////////////////////
+// Class: lemon_output_standard
+//
+// Implements the standard output policy
+struct lemon_output_standard {
+  template<typename T>
+  std::ostream& operator << (const T& val) {
+    std::cout << val;
+    return std::cout;
+  }
+};
+
+////////////////////////////////////////////////////////////////////////////////
+// Class: lemon_output_nothing
+//
+// Implements a null output policy
+struct lemon_output_nothing {
+  nullstream os;
+
+  template<typename T>
+  std::ostream& operator << (const T& val) {
+    return os;
+  }
+};
+
+////////////////////////////////////////////////////////////////////////////////
+// Class: lemon_test
+//
+// Evaluates unit tests and displays results
+template <class output_policy_t = lemon_output_standard>
+class lemon_test
 {
 public:
   //////////////////////////////////////////////////////////////////////////////
-  // Function: Lemon
+  // Function: lemon_test
   //
   // Parameters:
   //    num_planned_tests - The total number of tests you plan to execute
@@ -29,13 +76,13 @@ public:
   // This simply lets lemon know how many tests you're planning to run so that
   // it can properly output the diagnostic information and doesn't have to
   // count by hand (which can be tricky as one test can have many assertions).
-  Lemon (unsigned int num_planned_tests)
+  lemon_test (unsigned int num_planned_tests)
   : num_tests_(0),
     test_number_(0),
     num_skipped_(0),
     num_failed_(0)
   {
-    std::cout << "1.." << num_planned_tests << std::endl;
+    output_ << "1.." << num_planned_tests << "\n";
   }
   
   //////////////////////////////////////////////////////////////////////////////
@@ -45,22 +92,22 @@ public:
   //
   // Returns true if all unskipped tests passed, false if there were failures.
   bool done () {
-      // If any tests were skipped
+    // If any tests were skipped
     if (num_skipped_ > 0) {
       // Display information about the skipped tests
-      std::cout << "# Looks like you planned " << num_tests_;
-      std::cout << " but only ran " << (num_tests_ - num_skipped_) << ".\n";
+      output_ << "# Looks like you planned " << num_tests_;
+      output_ << " but only ran " << (num_tests_ - num_skipped_) << "\n";
     }
     
     // If any tests were failed
     if (num_failed_ > 0) {
       // Display test failure statistics
-      std::cout << "# Looks like you failed " << num_failed_;
-      std::cout << " of " << num_tests_ << " tests.\n";
+      output_ << "# Looks like you failed " << num_failed_;
+      output_ << " of " << num_tests_ << "\n";
       return false;
     } else {
       // Otherwise display success message
-      std::cout << "# Looks like you passed all " << num_tests_ << " tests.\n";
+      output_ << "# Looks like you passed all " << num_tests_ << " tests.\n";
       return true;
     }
   }
@@ -73,7 +120,7 @@ public:
   //
   // Used to display diagnostic information which is not a unit test.
   void diag (const std::string& message) {
-    std::cout << "# " << message << std::endl;
+    output_ << "# " << message << "\n";
   }
   
   //////////////////////////////////////////////////////////////////////////////
@@ -98,13 +145,13 @@ public:
     // If the test was passed
     if (passed) {
       // Inform you that the test passed
-      std::cout << "ok " << num_tests_ << " " << test_name << "\n";
+      output_ <<"ok " << num_tests_ << " " << test_name << "\n";
     } else {
       // Otherwise increment the number of failed tests
       num_failed_++;
       
       // Inform you that the test failed
-      std::cout << "not ok " << num_tests_ << " " << test_name << "\n";
+      output_ << "not ok " << num_tests_ << " " << test_name << "\n";
       diag("  Test failed, expected <true> but was <false>");
     }
   
@@ -144,8 +191,8 @@ public:
     ok(passed, test_name);
       
     if (!passed) {
-      std::cout << "#         got: '" << this_one << "'\n";
-      std::cout << "#    expected: '" << that_one << "'\n";
+      output_ << "#         got: '" << this_one << "'\n";
+      output_ << "#    expected: '" << that_one << "'\n";
     }
       
     return passed;
@@ -171,9 +218,9 @@ public:
     ok (passed, test_name);
       
     if (!passed) {
-      std::cout << "#    '" << this_one << "'\n";
-      std::cout << "#      !=\n";
-      std::cout << "#    '" << that_one << "'\n";
+      output_ << "#    '" << this_one << "'\n";
+      output_ << "#      !=\n";
+      output_ << "#    '" << that_one << "'\n";
     }
       
     return passed;
@@ -228,11 +275,20 @@ public:
     num_skipped_++;
     pass("# TODO " + what);
   }
+
+  //////////////////////////////////////////////////////////////////////////////
+  // Function: num_failed
+  // 
+  // Returns the number of failed tests
+  unsigned int num_failed() const {
+    return num_failed_;
+  }
 private:
-  unsigned int num_tests_; // The total number of tests to be executed
-  unsigned int test_number_; // The number of the current test
-  unsigned int num_skipped_; // The number of tests marked as skipped
-  unsigned int num_failed_; // The number of tests marked as failing
+  unsigned int    num_tests_; // The total number of tests to be executed
+  unsigned int    test_number_; // The number of the current test
+  unsigned int    num_skipped_; // The number of tests marked as skipped
+  unsigned int    num_failed_; // The number of tests marked as failing
+  output_policy_t output_; // The place where output will be sent
 };
 
-#endif // LEMON_H__
+#endif // LEMON_H_

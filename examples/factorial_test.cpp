@@ -1,7 +1,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Lemon Example One: A Simple Factorial Function
 //
-// Time-stamp: <Last modified 2010-02-25 14:06:21 by Eric Scrivner>
+// Time-stamp: <Last modified 2010-02-26 19:10:22 by Eric Scrivner>
 //
 // Description:
 //   Provides a set of unit-tests using Lemon for a simple factorial function.
@@ -26,7 +26,7 @@ int factorial(int n) {
 
 int main(int argc, char* argv[]) {
   // Setup lemon for 5 tests
-  Lemon lemon(4);
+  lemon_test<> lemon(4);
 
   // Test 1: Factorial of zero is one
   lemon.is(factorial(0), 1, "0! = 1");
@@ -40,8 +40,8 @@ int main(int argc, char* argv[]) {
   // Test 4: 5! = 120
   lemon.is(factorial(5), 120, "5! = 120");
 
-  // Finish testing and display statistics
-  lemon.done();
-	
+	// End testing
+	lemon.done();
+
   return 0;
 }
