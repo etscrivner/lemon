@@ -1,7 +1,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 // lemon
 //
-// Time-stamp: <Last modified 2010-02-26 19:10:08 by Eric Scrivner>
+// Time-stamp: <Last modified 2010-02-26 22:25:29 by Eric Scrivner>
 //
 // Description:
 //   Test suite to ensure lemons functionality.
@@ -13,8 +13,8 @@
 //
 // The lemon test suite.
 void lemon_tests() {
-	lemon_test<> lemon(13);
-	lemon_test<lemon_output_nothing> t1(8);
+	lemon::test<> lemon(13);
+	lemon::test<lemon::output::nothing> t1(8);
 
 	// Test 1: No failing tests to start off
 	lemon.is(t1.num_failed(), 0, "initially zero tests have failed.");
@@ -47,7 +47,6 @@ void lemon_tests() {
 	// Test 13: One more faliing test after failed isnt
 	lemon.is(t1.num_failed(), 4, "failure on isnt increments number failed.");
 
-	t1.done();
 	lemon.done();
 }
 

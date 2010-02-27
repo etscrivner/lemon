@@ -1,7 +1,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Lemon Example Two: Test Suites
 //
-// Time-stamp: <Last modified 2010-02-26 19:10:39 by Eric Scrivner>
+// Time-stamp: <Last modified 2010-02-26 22:26:24 by Eric Scrivner>
 //
 // Description:
 //   Showcase one simple method for composing unit tests into suites
@@ -25,7 +25,7 @@ int factorial(int n) {
 }
 
 void factorial_test_suite() {
-	lemon_test<> lemon(5);
+	lemon::test<> lemon(5);
 
 	// Test 1: The factorial function handles negative numbers as expected
 	lemon.is(factorial(-5), 1, "(-5)! = 1");
@@ -62,7 +62,7 @@ bool is_prime(int n) {
 }
 
 void is_prime_test_suite() {
-	lemon_test<> lemon(7);
+	lemon::test<> lemon(7);
 
 	// Test 1: Negative numbers are by definition non-prime
 	lemon.not_ok(is_prime(-5), "Negative numbers are not prime.");
