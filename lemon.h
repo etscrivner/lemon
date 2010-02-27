@@ -2,7 +2,7 @@
 // lemon
 // Author: Eric Scrivner
 //
-// Time-stamp: <Last modified 2010-02-26 19:09:35 by Eric Scrivner>
+// Time-stamp: <Last modified 2010-02-26 19:24:35 by Eric Scrivner>
 //
 // Description:
 //   A lightweight, minimal unit-testing framework based on Perl Test::More
@@ -15,34 +15,14 @@
 #include <iostream>
 
 ////////////////////////////////////////////////////////////////////////////////
-// Class: nullstream
-//
-// An output stream which discards any output and clears the bad bit. Only
-// slightly modified from:
-//
-// http://coding.derkeiler.com/Archive/C_CPP/comp.lang.cpp/2003-12/1049.html
-struct nullstream : std::ostream {
-  struct nullbuf : std::streambuf {
-    int overflow(int c) {
-      return traits_type::not_eof(c);
-    }
-  } sbuf_;
-
-  nullstream()
-  : std::ios(&sbuf_),
-    std::ostream(&sbuf_)
-  { }
-};
-
-////////////////////////////////////////////////////////////////////////////////
 // Class: lemon_output_standard
 //
 // Implements the standard output policy
 struct lemon_output_standard {
   template<typename T>
-  std::ostream& operator << (const T& val) {
+  lemon_output_standard& operator << (const T& val) {
     std::cout << val;
-    return std::cout;
+    return *this;
   }
 };
 
@@ -51,11 +31,9 @@ struct lemon_output_standard {
 //
 // Implements a null output policy
 struct lemon_output_nothing {
-  nullstream os;
-
   template<typename T>
-  std::ostream& operator << (const T& val) {
-    return os;
+  lemon_output_nothing& operator << (const T& val) {
+    return *this;
   }
 };
 
