@@ -1,4 +1,4 @@
-* Fix the blemish of requiring lemon_test<>, and instead make it just lemon_test if possible.
+* Fix the blemish of requiring lemon::test<>, and instead make it just lemon::test if possible.
 * Add support for indenting sub-tests, so that we could have:
 
 1..2
