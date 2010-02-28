@@ -1,10 +1,10 @@
 ////////////////////////////////////////////////////////////////////////////////
 // lemon
 //
-// Time-stamp: <Last modified 2010-02-26 22:25:29 by Eric Scrivner>
+// Time-stamp: <Last modified 2010-02-27 16:04:45 by Eric Scrivner>
 //
 // Description:
-//   Test suite to ensure lemons functionality.
+//   A test-suite for lemon using lemon itself (bootstrapping?)
 ////////////////////////////////////////////////////////////////////////////////
 #include "../lemon.h"
 

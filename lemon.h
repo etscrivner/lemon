@@ -1,8 +1,7 @@
 ///////////////////////////////////////////////////////////////////////////////
-// lemon
-// Author: Eric Scrivner
+// lemon.h - Contains the entire lemon unit testing framework
 //
-// Time-stamp: <Last modified 2010-02-26 20:43:25 by Eric Scrivner>
+// Time-stamp: <Last modified 2010-02-27 16:08:31 by Eric Scrivner>
 //
 // Description:
 //   A lightweight, minimal unit-testing framework based on Perl Test::More
@@ -39,9 +38,21 @@ namespace lemon {
         return *this;
       }
     };
+
+    ///////////////////////////////////////////////////////////////////////////
+    // Class: clog
+    //
+    // Implements output to standard logging
+    struct clog {
+      template<typename T>
+      lemon::output::clog& operator << (const T& val) {
+        std::clog << val;
+        return *this;
+      }
+    };
     
     ///////////////////////////////////////////////////////////////////////////
-    // Class: lemon_output_nothing
+    // Class: nothing
     //
     // Implements a null output policy
     struct nothing {
@@ -55,7 +66,7 @@ namespace lemon {
   /////////////////////////////////////////////////////////////////////////////
   // Class: test
   //
-  // Evaluates unit tests and displays results
+  // Policy-based class for doing testing
   template <class output_policy_t = lemon::output::cout>
   class test
   {
@@ -71,9 +82,9 @@ namespace lemon {
     // count by hand (which can be tricky as one test can have many assertions).
     test (unsigned int num_planned_tests)
     : num_tests_(0),
-    test_number_(0),
-    num_skipped_(0),
-    num_failed_(0)
+      test_number_(0),
+      num_skipped_(0),
+      num_failed_(0)
     {
       output_ << "1.." << num_planned_tests << "\n";
     }

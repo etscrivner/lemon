@@ -19,7 +19,7 @@ To start writing tests in lemon:
 
   1) initialize lemon
 
-  lemon_test<> lemon(num_tests_which_you_plan_to_run);
+  lemon::test<> lemon(num_tests_which_you_plan_to_run);
 
   2) conduct tests
 
