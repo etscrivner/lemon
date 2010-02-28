@@ -13,20 +13,20 @@
 //
 // Computes the factorial of the given number
 int factorial(int n) {
-	if (n <= 0) return 1;
+  if (n <= 0) return 1;
 
-	int result = 1;
-	while (n > 1) {
-		result *= n;
-		--n;
-	}
+  int result = 1;
+  while (n > 1) {
+    result *= n;
+    --n;
+  }
 
-	return result;
+  return result;
 }
 
 int main(int argc, char* argv[]) {
   // Setup lemon for 5 tests
-	lemon::test<> lemon(4);
+  lemon::test<> lemon(4);
 
   // Test 1: Factorial of zero is one
   lemon.is(factorial(0), 1, "0! = 1");
@@ -40,8 +40,8 @@ int main(int argc, char* argv[]) {
   // Test 4: 5! = 120
   lemon.is(factorial(5), 120, "5! = 120");
 
-	// End testing
-	lemon.done();
+  // End testing
+  lemon.done();
 
   return 0;
 }
