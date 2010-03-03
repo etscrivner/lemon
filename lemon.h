@@ -1,7 +1,7 @@
 ///////////////////////////////////////////////////////////////////////////////
 // lemon.h - Contains the entire lemon unit testing framework
 //
-// Time-stamp: <Last modified 2010-02-27 16:15:04 by Eric Scrivner>
+// Time-stamp: <Last modified 2010-03-03 01:27:22 by Eric Scrivner>
 //
 // Description:
 //   A lightweight, minimal unit-testing framework based on Perl Test::More
@@ -141,22 +141,23 @@ namespace lemon {
       num_tests_++;
     
       // If this is a skip or todo message
+      std::string test_name_out = test_name;
       if (test_name[0] != '#') {
         // Not the safest thing, but append a dash to the front
-        const_cast<std::string&>(test_name) = "- " + test_name;
+        test_name_out = "- " + test_name_out;
       }
     
       // If the test was passed
       if (passed) {
         // Inform you that the test passed
-        output_ <<"ok " << num_tests_ << " " << test_name << "\n";
+        output_ <<"ok " << num_tests_ << " " << test_name_out << "\n";
       } else {
         // Otherwise increment the number of failed tests
         num_failed_++;
       
         // Inform you that the test failed
-        output_ << "not ok " << num_tests_ << " " << test_name << "\n";
-        diag("  Test failed, expected <true> but was <false>");
+        output_ << "not ok " << num_tests_ << " " << test_name_out << "\n";
+        diag("  Failed test '" + test_name + "'");
       }
   
       return passed;
