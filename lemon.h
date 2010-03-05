@@ -1,7 +1,7 @@
 ///////////////////////////////////////////////////////////////////////////////
 // lemon.h - Contains the entire lemon unit testing framework
 //
-// Time-stamp: <Last modified 2010-03-03 01:27:22 by Eric Scrivner>
+// Time-stamp: <Last modified 2010-03-04 21:31:24 by Eric Scrivner>
 //
 // Description:
 //   A lightweight, minimal unit-testing framework based on Perl Test::More
@@ -68,8 +68,7 @@ namespace lemon {
   //
   // Policy-based class for doing testing
   template <class output_policy_t = lemon::output::cout>
-  class test
-  {
+  class test {
   public:
     ///////////////////////////////////////////////////////////////////////////
     // Function: test
@@ -84,7 +83,8 @@ namespace lemon {
     : num_tests_(0),
       test_number_(0),
       num_skipped_(0),
-      num_failed_(0)
+      num_failed_(0),
+      num_planned_(num_planned_tests)
     {
       output_ << "1.." << num_planned_tests << "\n";
     }
@@ -108,6 +108,10 @@ namespace lemon {
         // Display test failure statistics
         output_ << "# Looks like you failed " << num_failed_;
         output_ << " of " << num_tests_ << "\n";
+        return false;
+      } else if(num_tests_ > num_planned_) {
+        output_ << "# Looks like you ran " << num_tests_ << " tests, ";
+        output_ << "but only planned " << num_planned_ << "\n";
         return false;
       } else {
         // Otherwise display success message
@@ -293,6 +297,7 @@ namespace lemon {
     unsigned int    test_number_; // The number of the current test
     unsigned int    num_skipped_; // The number of tests marked as skipped
     unsigned int    num_failed_; // The number of tests marked as failing
+    unsigned int    num_planned_; // The number of tests planned to be run
     output_policy_t output_; // The place where output will be sent
   };
 }
