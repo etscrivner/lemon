@@ -1,0 +1,8 @@
+# Ignore compiled executables
+tests/a.out
+examples/a.out
+
+# Ignore emacs backups
+tests/*~
+examples/*~
+*~
