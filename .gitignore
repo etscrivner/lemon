@@ -1,6 +1,6 @@
 # Ignore compiled executables
-tests/a.out
-examples/a.out
+tests/*.out
+examples/*.out
 
 # Ignore emacs backups
 tests/*~
