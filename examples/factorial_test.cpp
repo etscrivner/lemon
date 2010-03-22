@@ -1,12 +1,12 @@
 ///////////////////////////////////////////////////////////////////////////////
 // factorial_test.cpp - A simple factorial example
 //
-// Time-stamp: <Last modified 2010-03-17 10:02:41 by Eric Scrivner>
+// Time-stamp: <Last modified 2010-03-22 16:43:52 by Eric Scrivner>
 //
 // Description:
 //   Provides a set of unit-tests using Lemon for a simple factorial function.
 //
-// Copyright (c) 2010 Lemon Team
+// Copyright (c) 2010 lemon team
 //
 // This software is provided 'as-is', without any express or implied
 // warranty. In no event will the authors be held liable for any damages
@@ -46,23 +46,12 @@ int factorial(int n) {
 }
 
 int main(int argc, char* argv[]) {
-  // Setup lemon for 4 tests
   lemon::test<> lemon(4);
 
-  // Test 1: Factorial of zero is one
   lemon.is(factorial(0), 1, "0! = 1");
-
-  // Test 2: 3! = 3 * 2 * 1
   lemon.is(factorial(3), 3 * 2 * 1, "3! = 3 * 2 * 1");
-
-  // Test 3: (-5)! = 1
   lemon.is(factorial(-5), 1, "(-5)! = 1");
-
-  // Test 4: 5! = 120
   lemon.is(factorial(5), 120, "5! = 120");
 
-  // End testing
-  lemon.done();
-
-  return 0;
+  return lemon.done() ? 0 : 1;
 }

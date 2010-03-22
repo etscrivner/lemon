@@ -1,8 +1,8 @@
 # rakefilb.rb - Used to build lemon
 #
-# Time-stamp: <Last modified 2010-03-17 10:01:52 by Eric Scrivner>
+# Time-stamp: <Last modified 2010-03-22 16:42:00 by Eric Scrivner>
 #
-# Copyright (c) 2010 Lemon Team
+# Copyright (c) 2010 lemon team
 #
 # This software is provided 'as-is', without any express or implied
 # warranty. In no event will the authors be held liable for any damages
