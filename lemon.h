@@ -36,6 +36,24 @@
 #include <string>
 #include <iostream>
 
+///////////////////////////////////////////////////////////////////////////////
+// Macro: LEMON_SKIP
+//
+// Begins a block of tests that will be skipped, creating a more convenient
+// syntax for test skipping. For example:
+//
+// <code>
+// lemon::test<> lemon(..);
+// // ...
+// LEMON_SKIP(lemon, "These tests are currently broken") {
+//   lemon.is(foo(), true, "foo true");
+//   lemon.is(bar(), false, "bar false");
+// }
+// </code>
+#define LEMON_SKIP(lemon_inst, reason) \
+  for (bool __skip_enabled__ = (lemon_inst).enable_skip(reason); \
+       __skip_enabled__; __skip_enabled__ = (lemon_inst).disable_skip())
+
 namespace lemon {
   namespace output {
     ///////////////////////////////////////////////////////////////////////////
@@ -89,7 +107,16 @@ namespace lemon {
   /////////////////////////////////////////////////////////////////////////////
   // Class: test
   //
-  // Policy-based class for doing testing
+  // Policy-based class for doing testing. For example a simple test might be:
+  //
+  // <code>
+  // bool always_true() { return true; }
+  // //...
+  // lemon::test<> lemon(2);
+  // lemon.is(always_true(), true, "always_true is true");
+  // lemon.isnt(always_true(), false, "always_true isn't false");
+  // lemon.done();
+  // </code>
   template <class output_policy_t = lemon::output::cout>
   class test {
   public:
@@ -124,8 +151,9 @@ namespace lemon {
   bool done (unsigned int expected_tests_run = 0) {
     // If there is a difference in the number of tests planned and run
     if (expected_tests_run > 0 &&
-        num_planned > 0 &&
+        num_planned_ > 0 &&
         expected_tests_run != num_planned_) {
+      // Output a warning message and assume latter test-count is correct
       output_ << "# Explicit change of number of planned tests.\n";
       output_ << "#  was: " << num_planned_ << ", ";
       output_ << "became: " << expected_tests_run << "\n";
@@ -138,8 +166,8 @@ namespace lemon {
     // If any tests were skipped
     if (num_planned_ > 0 && num_skipped_ > 0) {
       // Display information about the skipped tests
-      output_ << "# Looks like you planned " << num_tests_;
-      output_ << " but only ran " << total_tests << "\n";
+      output_ << "# Looks like you planned " << num_planned_;
+      output_ << " but only ran " << (num_planned_ - num_skipped_) << "\n";
     }
     
     // If any tests were failed
@@ -148,7 +176,7 @@ namespace lemon {
       output_ << "# Looks like you failed " << num_failed_;
       output_ << " of " << total_tests << "\n";
       return false;
-    } else if(num_planned_ > 0 && num_tests_ > num_planned_) {
+    } else if(num_planned_ > 0 && total_tests > num_planned_) {
       output_ << "# Looks like you ran " << total_tests << " tests, ";
       output_ << "but only planned " <<  num_planned_ << "\n";
       return false;
@@ -301,31 +329,27 @@ namespace lemon {
   }
 
   /////////////////////////////////////////////////////////////////////////////
-  // Function: skip
+  // Function: enable_skip
   //
   // Parameters:
-  //    reason - The reason for skipping this test
-  //    num_to_skip - The number of tests to skip
+  //   reason - The reason printed for skipping tests
   //
-  // Skips the given number of tests adding them to the skip count.
-  void skip (const std::string& reason, unsigned int num_to_skip) {
-    num_skipped_ += num_to_skip;
-  
-    for (unsigned int i = 0; i < num_to_skip; i++) {
-      pass("# SKIP " + reason);
-    }	
+  // Enables skipping causing no tests to be run until skipping is disabled.
+  // Always returns true.
+  bool enable_skip(const std::string& reason) {
+    diag("BEGIN SKIP - " + reason);
+    skip_enabled_ = true;
+    return true;
   }
-
+  
   /////////////////////////////////////////////////////////////////////////////
-  // Function: todo
+  // Function: disable_skip
   //
-  // Parameters:
-  //    what - What needs to be done
-  //
-  // Prints a message indicating what is left to be done
-  void todo (const std::string& what) {
-    num_skipped_++;
-    pass("# TODO " + what);
+  // Disables skipping allowing tests to be run again. Always returns false.
+  bool disable_skip() {
+    diag("END SKIP");
+    skip_enabled_ = false;
+    return false;
   }
 
   /////////////////////////////////////////////////////////////////////////////
@@ -334,6 +358,14 @@ namespace lemon {
   // Returns the number of failed tests
   unsigned int num_failed () const {
     return num_failed_;
+  }
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Function: num_skipped
+  //
+  // Returns the number of skipped tests
+  unsigned int num_skipped() const {
+    return num_skipped_;
   }
   private:
   unsigned int    num_tests_; // The total number of tests to be executed
