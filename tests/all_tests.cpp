@@ -1,15 +1,15 @@
 ////////////////////////////////////////////////////////////////////////////////
-// lemon
+// all_tests.cpp - All tests for the lemon unit-testing framework
 //
-// Time-stamp: <Last modified 2010-03-22 14:56:35 by Eric Scrivner>
+// Time-stamp: <Last modified 2010-03-22 16:38:48 by Eric Scrivner>
 //
 // Description:
-//   A test-suite for lemon using lemon itself (bootstrapping?)
+//   A test-suite for lemon using lemon itself
 ////////////////////////////////////////////////////////////////////////////////
 #include "../lemon.h"
 
 int lemon_tests() {
-	lemon::test<> lemon(18);
+	lemon::test<> lemon(19);
 
 	lemon::test<lemon::output::nothing> t1(8);
 	lemon.is(t1.num_failed(), 0, "initially zero tests have failed.");
@@ -35,13 +35,12 @@ int lemon_tests() {
 	lemon.is(t1.num_failed(), 5, "fail increments the number of failed tests.");
 
 	lemon.is(t1.num_skipped(), 0, "number skipped is initially zero.");
-
 	LEMON_SKIP(t1, "For testing purposes only") {
 		t1.is(1, 2, "1 == 2");
 		t1.is(2, 2, "2 == 2");
 	}
-
 	lemon.is(t1.num_skipped(), 2, "number skipped is correct after skipping.");
+	lemon.is(t1.num_failed(), 5, "skipping does not add failing tests.");
 
 	return lemon.done() ? 0 : 1;
 }

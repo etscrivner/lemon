@@ -137,7 +137,9 @@ namespace lemon {
     num_planned_(num_planned_tests),
     skip_enabled_(false)
   {
-    output_ << "1.." << num_planned_tests << "\n";
+    if (num_planned_tests > 0) {
+      output_ << "1.." << num_planned_tests << "\n";
+    }
   }
   
   /////////////////////////////////////////////////////////////////////////////
@@ -270,7 +272,7 @@ namespace lemon {
       
     ok(passed, test_name);
       
-    if (!passed) {
+    if (!passed && !skip_enabled_) {
       output_ << "#         got: '" << this_one << "'\n";
       output_ << "#    expected: '" << that_one << "'\n";
     }
@@ -297,7 +299,7 @@ namespace lemon {
       
     ok (passed, test_name);
       
-    if (!passed) {
+    if (!passed && !skip_enabled_) {
       output_ << "#    '" << this_one << "'\n";
       output_ << "#      !=\n";
       output_ << "#    '" << that_one << "'\n";

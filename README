@@ -45,6 +45,13 @@ lemon provides a minimal but complete set of assertions:
 
   * fail(descriptive_test_name)
 
-  * skip(reason, num_to_skip)
+~ skipping ~
 
-  * todo(what)
+skipping tests is equally easy:
+
+  lemon::test<> lemon(...);
+  ...
+  LEMON_SKIP(lemon, "These tests don't work at the moment") {
+	  lemon.is(a, b, "a is b");
+    lemon.ok(foo(), "foo is true");
+  }
