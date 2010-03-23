@@ -65,7 +65,7 @@
 // // ...
 // LEMON_TODO(lemon) {
 //   lemon.is(tumtum(), fizbaz(), "tumtum is fizbaz");
-//   lemon.ok(yot(), "yot is true");
+//   lemon.not_ok(cannibalism(), "cannibalism is not ok");
 // }
 // </code>
 #define LEMON_TODO(lemon_inst) \

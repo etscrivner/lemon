@@ -55,3 +55,14 @@ skipping tests is equally easy:
 	  lemon.is(a, b, "a is b");
     lemon.ok(foo(), "foo is true");
   }
+
+~ todo ~
+
+writing tests before you write code? todo blocks can help:
+
+  lemon::test<> lemon(...);
+  ...
+  LEMON_TODO(lemon) {
+    lemon.is(tumtum(), fizbaz(), "tumtum is fizbaz");
+    lemon.not_ok(cannibalism(), "cannibalism is not ok");
+  }
