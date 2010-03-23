@@ -1,6 +1,6 @@
 # rakefilb.rb - Used to build lemon
 #
-# Time-stamp: <Last modified 2010-03-22 18:13:50 by Eric Scrivner>
+# Time-stamp: <Last modified 2010-03-22 20:32:56 by Eric Scrivner>
 #
 # Copyright (c) 2010 lemon team
 #
@@ -43,6 +43,6 @@ end
 # Tasks
 task :default => [:tests, :examples]
 
-task :tests => RESULT
+task :tests => [:clean, RESULT]
 
 task :examples => EXAMPLES
