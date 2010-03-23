@@ -8,6 +8,21 @@ to set up.
 lemon is designed to be small, really small. That way you can worry less
 about setting up the framework and more about writing tests.
 
+~ download ~
+
+Download the latest stable version from the lemon Git repository (hosted
+on GitHub):
+
+git clone git://github.com/etscrivner/lemon.git
+
+~ compiling ~
+
+Requires Ruby Make (Rake), simply run:
+
+rake all
+
+This will build the examples as well as the unit-tests for lemon itself.
+
 ~ installation ~
 
 Just add lemon.h to your project or place it in a common directory for your
