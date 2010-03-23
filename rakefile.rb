@@ -1,6 +1,6 @@
 # rakefilb.rb - Used to build lemon
 #
-# Time-stamp: <Last modified 2010-03-22 16:42:00 by Eric Scrivner>
+# Time-stamp: <Last modified 2010-03-22 18:13:50 by Eric Scrivner>
 #
 # Copyright (c) 2010 lemon team
 #
@@ -37,7 +37,7 @@ CLEAN.include(EXAMPLES)
 
 # Rules
 rule '.out' => '.cpp' do |t|
-  sh "g++ -ansi -o #{t.name} #{t.source}"
+  sh "g++ -ansi -pedantic -o #{t.name} #{t.source}"
 end
 
 # Tasks

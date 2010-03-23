@@ -51,8 +51,26 @@
 // }
 // </code>
 #define LEMON_SKIP(lemon_inst, reason) \
-  for (bool __skip_enabled__ = (lemon_inst).enable_skip(reason); \
+  for (bool __skip_enabled__ = (lemon_inst).enable_skip(); \
        __skip_enabled__; __skip_enabled__ = (lemon_inst).disable_skip())
+
+///////////////////////////////////////////////////////////////////////////////
+// Macro: LEMON_TODO
+//
+// Begins a block of tests for features which have yet to be completed. For
+// example:
+//
+// <code>
+// lemon::test<> lemon(..);
+// // ...
+// LEMON_TODO(lemon) {
+//   lemon.is(tumtum(), fizbaz(), "tumtum is fizbaz");
+//   lemon.ok(yot(), "yot is true");
+// }
+// </code>
+#define LEMON_TODO(lemon_inst) \
+  for (bool __todo_enabled__ = (lemon_inst).enable_todo(); \
+       __todo_enabled__; __todo_enabled__ = (lemon_inst).disable_todo())
 
 namespace lemon {
   namespace output {
@@ -135,7 +153,8 @@ namespace lemon {
     num_skipped_(0),
     num_failed_(0),
     num_planned_(num_planned_tests),
-    skip_enabled_(false)
+    skip_enabled_(false),
+    todo_enabled_(false)
   {
     if (num_planned_tests > 0) {
       output_ << "1.." << num_planned_tests << "\n";
@@ -169,7 +188,7 @@ namespace lemon {
     if (num_planned_ > 0 && num_skipped_ > 0) {
       // Display information about the skipped tests
       output_ << "# Looks like you planned " << num_planned_;
-      output_ << " but only ran " << (num_planned_ - num_skipped_) << "\n";
+      output_ << " but only ran " << total_tests << "\n";
     }
     
     // If any tests were failed
@@ -225,6 +244,10 @@ namespace lemon {
       num_skipped_++;
       output_ << "skipping " << num_tests_ << " " << test_name_out << "\n";
       return false;
+    } else if (todo_enabled_) {
+      num_skipped_++;
+      output_ << "todo " << num_tests_ << " " << test_name_out << "\n";
+      return false;
     } else if (passed) {
       // Inform you that the test passed
       output_ << "ok " << num_tests_ << " " << test_name_out << "\n";
@@ -272,7 +295,7 @@ namespace lemon {
       
     ok(passed, test_name);
       
-    if (!passed && !skip_enabled_) {
+    if (!passed && !skip_enabled_ && !todo_enabled_) {
       output_ << "#         got: '" << this_one << "'\n";
       output_ << "#    expected: '" << that_one << "'\n";
     }
@@ -299,7 +322,7 @@ namespace lemon {
       
     ok (passed, test_name);
       
-    if (!passed && !skip_enabled_) {
+    if (!passed && !skip_enabled_ && !todo_enabled_) {
       output_ << "#    '" << this_one << "'\n";
       output_ << "#      !=\n";
       output_ << "#    '" << that_one << "'\n";
@@ -331,6 +354,26 @@ namespace lemon {
   }
 
   /////////////////////////////////////////////////////////////////////////////
+  // Function: enable_todo
+  //
+  // Enables todo mode causing no tests to be run until todo is disabled.
+  // Always returns true.
+  bool enable_todo () {
+    todo_enabled_ = true;
+    return true;
+  }
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Function: disable_todo
+  //
+  // Disables todo mode causing any further tests to be run. Always returns
+  // false.
+  bool disable_todo () {
+    todo_enabled_ = false;
+    return false;
+  }
+
+  /////////////////////////////////////////////////////////////////////////////
   // Function: enable_skip
   //
   // Parameters:
@@ -338,8 +381,7 @@ namespace lemon {
   //
   // Enables skipping causing no tests to be run until skipping is disabled.
   // Always returns true.
-  bool enable_skip(const std::string& reason) {
-    diag("BEGIN SKIP - " + reason);
+  bool enable_skip () {
     skip_enabled_ = true;
     return true;
   }
@@ -348,8 +390,7 @@ namespace lemon {
   // Function: disable_skip
   //
   // Disables skipping allowing tests to be run again. Always returns false.
-  bool disable_skip() {
-    diag("END SKIP");
+  bool disable_skip () {
     skip_enabled_ = false;
     return false;
   }
@@ -375,7 +416,8 @@ namespace lemon {
   unsigned int    num_skipped_; // The number of tests marked as skipped
   unsigned int    num_failed_; // The number of tests marked as failing
   unsigned int    num_planned_; // The number of tests planned to be run
-  bool            skip_enabled_; // Is skipping enabled currently
+  bool            skip_enabled_; // Are tests being skipped
+  bool            todo_enabled_; // Are these tests incomplete
   output_policy_t output_; // The place where output will be sent
   };
 }
