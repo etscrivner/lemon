@@ -33,8 +33,8 @@
 #define LEMON_H_
 
 // C++ includes
-#include <string>
 #include <iostream>
+#include <string>
 
 ///////////////////////////////////////////////////////////////////////////////
 // Macro: LEMON_SKIP
@@ -164,21 +164,11 @@ namespace lemon {
   /////////////////////////////////////////////////////////////////////////////
   // Function: done
   //
-  // Parameters:
-  //   expected_tests_run - The total number of tests expected to have been
-  //                        run in this testing phase.
-  //
   // Returns true if all unskipped tests passed, false if there were failures.
-  bool done (unsigned int expected_tests_run = 0) {
-    // If there is a difference in the number of tests planned and run
-    if (expected_tests_run > 0 &&
-        num_planned_ > 0 &&
-        expected_tests_run != num_planned_) {
-      // Output a warning message and assume latter test-count is correct
-      output_ << "# Explicit change of number of planned tests.\n";
-      output_ << "#  was: " << num_planned_ << ", ";
-      output_ << "became: " << expected_tests_run << "\n";
-      num_planned_ = expected_tests_run;
+  bool done () {
+    // If there was no test plan specified
+    if (num_planned_ == 0) {
+      output_ << "1.." << num_tests_ << "\n";
     }
 
     // Compute the total number of tests without skipped tests counted
