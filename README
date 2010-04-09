@@ -1,12 +1,8 @@
 ~ lemon ~
 
-lemon is a tiny, fast unit-testing framework designed to take almost no time
-to set up.
-   
-~ philosophy ~
-
-lemon is designed to be small, really small. That way you can worry less
-about setting up the framework and more about writing tests.
+lemon is a tiny, fast unit-testing framework  designed to be small, really
+small. That way you can worry less about setting up the framework and more 
+about writing tests.
 
 ~ download ~
 
@@ -17,7 +13,7 @@ git clone git://github.com/etscrivner/lemon.git
 
 ~ compiling ~
 
-Requires Ruby Make (Rake), simply run:
+Requires Ruby Make (rake), simply run:
 
 rake all
 
@@ -32,7 +28,7 @@ compiler (On Linux/Mac/Unix this might be /usr/local/include).
 
 To start writing tests in lemon:
 
-  1) initialize lemon
+  1) initialize lemon (number of planned tests is optional)
 
   lemon::test<> lemon(num_tests_which_you_plan_to_run);
 
